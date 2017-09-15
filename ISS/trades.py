@@ -1,15 +1,9 @@
 import pandas as pd
 from ISS.helpers import request
 
-# /iss/engines/[engine]/markets/[market]/trades
-# /iss/engines/[engine]/markets/[market]/securities/[security]/trades
-# /iss/engines/[engine]/markets/[market]/boards/[board]/trades
-# /iss/engines/[engine]/markets/[market]/boardgroups/[boardgroup]/trades
-# /iss/engines/[engine]/markets/[market]/boardgroups/[boardgroup]/securities/[security]/trades
-
 
 def trades(engine=None, market=None, boardid=None, securityid=None, limit=5000, reversed=0, previous_session=0, tradeno=0, start=0):
-    """/iss/engines/.../trades - https://iss.moex.com/iss/reference/55"""
+    """/iss/engines/.../trades"""
     name = 'trades'
     url = 'https://iss.moex.com/iss/engines/{0}/markets/{1}/trades.json?limit={4}&resersed={5}&previous_session={6}&tradeno={7}&start={8}'
     if boardid:
