@@ -19,7 +19,6 @@ related ISS Queries methods:
 - [/iss/engines/[engine]/markets/[market]/trades](https://iss.moex.com/iss/reference/35)
 - [/iss/engines/[engine]/markets/[market]/boards/[board]/securities/[security]/trades](https://iss.moex.com/iss/reference/56)
 - [/iss/engines/[engine]/markets/[market]/boards/[board]/trades](https://iss.moex.com/iss/reference/34)
-- [/iss/engines/[engine]/markets/[market]/boardgroups/[boardgroup]/securities/[security]/trades](https://iss.moex.com/iss/reference/60)
 
 ### ISS.candles
 related ISS Queries methods:
