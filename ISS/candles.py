@@ -57,4 +57,9 @@ class Candles(object):
         del data
 
     def __str__(self):
-        return '''------------------------------------------------------------------'''
+        return '''------------------------------------------------------------------
+Candles ({4} entries, begin: {5}, end: {6}, interval: {7})
+engine: {0}, market: {1}, boardid: {2}, securityid: {3}
+------------------------------------------------------------------'''.format(
+            self.__engine, self.__market, self.__boardid, self.__securityid,
+            self.__candles.shape[0], self.__dt1, self.__dt2, self.__interval)
