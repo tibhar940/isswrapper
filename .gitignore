@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints
+.idea
 
 /temp
 /data
