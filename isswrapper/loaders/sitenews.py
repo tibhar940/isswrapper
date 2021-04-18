@@ -1,8 +1,9 @@
 import datetime
+
 import pandas as pd
 from tqdm import tqdm
 
-from isswrapper.helpers import request_df, request_cursor
+from isswrapper.helpers import request_cursor, request_df
 
 
 def sitenews(start: int = 0, lang: str = "ru") -> pd.DataFrame:
@@ -22,7 +23,6 @@ def sitenews_body(id: int) -> pd.DataFrame:
 
 
 class SiteNews(object):
-
     def __init__(self, lang: str = "ru"):
         self.__start = 0
         self.__end = 200

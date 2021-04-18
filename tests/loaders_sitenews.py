@@ -1,7 +1,8 @@
 import datetime
-import pandas as pd
-from isswrapper.loaders.sitenews import sitenews, SiteNews
 
+import pandas as pd
+
+from isswrapper.loaders.sitenews import SiteNews, sitenews
 
 pd.set_option("display.max_rows", 500)
 pd.set_option("display.max_columns", 500)
