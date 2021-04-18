@@ -30,6 +30,6 @@ if __name__ == "__main__":
     print("==============================================================")
     print(result)
 
-    result = security_bondyields("SBER")
+    result = security_bondyields("SU26215RMFS2")
     print("==============================================================")
     print(result)

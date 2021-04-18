@@ -1,6 +1,6 @@
 import pandas as pd
 
-from isswrapper.helpers import request
+from isswrapper.helpers import request_df
 
 
 def trades(
@@ -21,7 +21,7 @@ def trades(
         url = "https://iss.moex.com/iss/engines/{0}/markets/{1}/boards/{2}/trades.json?limit={4}&resersed={5}&previous_session={6}&tradeno={7}&start={8}"
     if securityid:
         url = "https://iss.moex.com/iss/engines/{0}/markets/{1}/securities/{3}/trades.json?limit={4}&resersed={5}&previous_session={6}&tradeno={7}&start={8}"
-    trades = request(
+    trades = request_df(
         url.format(engine, market, boardid, securityid, limit, reversed, previous_session, tradeno, start), name
     )
     trades.columns = trades.columns.str.lower()

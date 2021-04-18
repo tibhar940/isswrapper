@@ -1,6 +1,6 @@
 import pandas as pd
 
-from isswrapper.helpers import request
+from isswrapper.helpers import request_df
 
 
 def candles(engine=None, market=None, boardid=None, securityid=None, start=0, dt1="", dt2="", interval=10):
@@ -14,7 +14,7 @@ def candles(engine=None, market=None, boardid=None, securityid=None, start=0, dt
         url = "https://iss.moex.com/iss/engines/{0}/markets/{1}/securities/{3}/candles.json?start={4}&from={5}&till={6}&interval={7}"
         if boardid:
             url = "https://iss.moex.com/iss/engines/{0}/markets/{1}/boards/{2}/securities/{3}/candles.json?start={4}&from={5}&till={6}&interval={7}"
-        candles = request(url.format(engine, market, boardid, securityid, start, dt1, dt2, interval), name)
+        candles = request_df(url.format(engine, market, boardid, securityid, start, dt1, dt2, interval), name)
     else:
         raise AttributeError("securityid must be specified")
     candles.loc[:, "begin"] = pd.to_datetime(candles["begin"], format="%Y-%m-%d %H:%M:%S")
