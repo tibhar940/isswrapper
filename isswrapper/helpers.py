@@ -1,7 +1,7 @@
 import json
+
 import pandas as pd
 import requests
-
 
 meta_dict = {
     "datetime": "datetime64[ns]",

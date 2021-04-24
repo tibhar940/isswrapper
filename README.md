@@ -7,7 +7,7 @@ Simple wrapper for [Moscow Exchange](http://moex.com)  API (ISS Queries)
 TODO
 
 # Colab example
-TODO
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/tibhar940/1ed503816050a40f6e0a80f590b1c396/isswrapper_getting_started.ipynb)
 
 # Modules
 
