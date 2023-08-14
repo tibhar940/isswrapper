@@ -1,9 +1,18 @@
-import datetime
+# temporary part to test out new funcs
+if __name__ == "__main__":
+    import sys
 
+    sys.path.append("..")
+    from isswrapper.isswrapper.helpers import request_cursor, request_df
+else:
+    from isswrapper.helpers import request_cursor, request_df, get_total_news_number
+
+
+# from isswrapper.helpers import request_cursor, request_df
+
+import datetime
 import pandas as pd
 from tqdm import tqdm
-
-from isswrapper.helpers import request_cursor, request_df
 
 
 def sitenews(start: int = 0, lang: str = "ru") -> pd.DataFrame:
@@ -29,14 +38,21 @@ class SiteNews(object):
         self.__name = "sitenews"
         self.__lang = lang
         self.__url = "https://iss.moex.com/iss/sitenews.json?start={0}&lang={1}"
-        self.__cursor = request_cursor(self.__url.format(self.__start, self.__lang), self.__name)
+        self.__cursor = request_cursor(
+            self.__url.format(self.__start, self.__lang), self.__name
+        )
         self.__current = self.__cursor["current"]
         self.__step = self.__cursor["step"]
         self.__df = pd.DataFrame()
 
     df = property(lambda self: self.__df)
 
-    def load(self, ts1: datetime.datetime = None, ts2: datetime.datetime = None, load_body: bool = False):
+    def load(
+        self,
+        ts1: datetime.datetime = None,
+        ts2: datetime.datetime = None,
+        load_body: bool = False,
+    ):
         if not ts2:
             ts2 = datetime.datetime.now() + datetime.timedelta(days=1)
         if not ts1:
@@ -48,7 +64,11 @@ class SiteNews(object):
                 df = sitenews(start=self.__current, lang=self.__lang)
                 ts_current = df["published_at"].min()
                 df = df[df["published_at"].between(ts1, ts2)]
-                self.__df = self.__df.append(df).reset_index(drop=True)
+
+                self.__df = pd.concat([self.__df, df], ignore_index=True)
+                #
+                # self.__df = self.__df.append(df).reset_index(drop=True)
+
                 self.__current += self.__step
                 pbar.update(1)
 
@@ -66,5 +86,14 @@ class SiteNews(object):
 
             self.__df = pd.merge(self.__df, body_df, how="left", on="id")
 
+    def load_all(self, load_body: bool = False):
+        self.load(ts1=datetime.datetime(2000, 1, 1), load_body=load_body)
+
     def __str__(self):
         return """Total news loaded: {0}""".format(len(self.__df))
+
+
+if __name__ == "__main__":
+    sn_instance = SiteNews()
+    sn_instance.load()
+    print(sn_instance.df)

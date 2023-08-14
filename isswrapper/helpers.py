@@ -1,5 +1,5 @@
 import json
-
+from lxml import html
 import pandas as pd
 import requests
 
@@ -12,6 +12,19 @@ meta_dict = {
     "int32": "Int32",
     "double": "float64",
 }
+
+
+def get_total_news_number():
+    """
+    Obtain total number of news
+
+    :return: total amount of news
+    :rtype: int
+    """
+    url = "https://iss.moex.com/iss/sitenews.json"
+    response = requests.get(url)
+    result = json.loads(response.text)
+    return result["sitenews.cursor"]["data"][0][1]
 
 
 def request_df(url: str, name: str) -> pd.DataFrame:
