@@ -1,0 +1,13 @@
+[project]
+name = "isswrapper"
+version = "0.1.0"
+description = "Simple wrapper for Moscow Exchange API (ISS Queries)"
+readme = "README.md"
+
+    
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["isswrapper"]

@@ -1,14 +1,4 @@
-# temporary part to test out new funcs
-if __name__ == "__main__":
-    import sys
-
-    sys.path.append("..")
-    from isswrapper.isswrapper.helpers import request_cursor, request_df
-else:
-    from isswrapper.helpers import request_cursor, request_df, get_total_news_number
-
-
-# from isswrapper.helpers import request_cursor, request_df
+from isswrapper.util.helpers import request_cursor, request_df
 
 import datetime
 import pandas as pd

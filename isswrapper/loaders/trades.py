@@ -1,6 +1,6 @@
 import pandas as pd
 
-from isswrapper.helpers import request_df
+from isswrapper.util.helpers import request_df
 
 
 def trades(
@@ -22,16 +22,36 @@ def trades(
     if securityid:
         url = "https://iss.moex.com/iss/engines/{0}/markets/{1}/securities/{3}/trades.json?limit={4}&resersed={5}&previous_session={6}&tradeno={7}&start={8}"
     trades = request_df(
-        url.format(engine, market, boardid, securityid, limit, reversed, previous_session, tradeno, start), name
+        url.format(
+            engine,
+            market,
+            boardid,
+            securityid,
+            limit,
+            reversed,
+            previous_session,
+            tradeno,
+            start,
+        ),
+        name,
     )
     trades.columns = trades.columns.str.lower()
-    trades.loc[:, "systime"] = pd.to_datetime(trades["systime"], format="%Y-%m-%d %H:%M:%S")
+    trades.loc[:, "systime"] = pd.to_datetime(
+        trades["systime"], format="%Y-%m-%d %H:%M:%S"
+    )
     return trades
 
 
 class Trades(object):
     def __init__(
-        self, engine=None, market=None, boardid=None, securityid=None, reversed=0, previous_session=0, tradeno=0
+        self,
+        engine=None,
+        market=None,
+        boardid=None,
+        securityid=None,
+        reversed=0,
+        previous_session=0,
+        tradeno=0,
     ):
         self.__engine = engine
         self.__market = market

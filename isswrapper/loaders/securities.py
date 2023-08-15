@@ -1,12 +1,23 @@
-from isswrapper.helpers import request_df
+from isswrapper.util.helpers import request_df
 
 
-def q(q="", lang="ru", engine="", market="", is_trading=None, group_by="", limit=100, start=0):
+def q(
+    q="",
+    lang="ru",
+    engine="",
+    market="",
+    is_trading=None,
+    group_by="",
+    limit=100,
+    start=0,
+):
     """/iss/securities - https://iss.moex.com/iss/reference/5"""
     name = "securities"
     url = "https://iss.moex.com/iss/securities.json?q={0}&lang={1}&engine={2}&market={3}&is_trading={4}&group_by={5}\
     &limit={6}&start={7}"
-    df = request_df(url.format(q, lang, engine, market, is_trading, group_by, limit, start), name)
+    df = request_df(
+        url.format(q, lang, engine, market, is_trading, group_by, limit, start), name
+    )
     return df
 
 
@@ -29,7 +40,9 @@ def security_boards(q="", lang="ru", start=0):
 def security_indices(q="", lang="ru", only_actual=0):
     """/iss/securities/[security]/indices - https://iss.moex.com/iss/reference/160"""
     name = "indices"
-    url = "https://iss.moex.com/iss//securities/{0}/indices.json?lang={1}&only_actual={2}"
+    url = (
+        "https://iss.moex.com/iss//securities/{0}/indices.json?lang={1}&only_actual={2}"
+    )
     df = request_df(url.format(q, lang, only_actual), name)
     return df
 
