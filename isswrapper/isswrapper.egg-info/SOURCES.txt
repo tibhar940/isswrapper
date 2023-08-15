@@ -1,6 +1,7 @@
 .gitignore
 README.md
 pyproject.toml
+setup.cfg
 .github/workflows/pre-commit.yml
 isswrapper/isswrapper.egg-info/PKG-INFO
 isswrapper/isswrapper.egg-info/SOURCES.txt
