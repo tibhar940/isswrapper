@@ -75,9 +75,6 @@ class SiteNews(object):
                 self.__current += self.__step
                 pbar.update(1)
 
-        if d_filter:
-            self.__df = d_filter(self.__df)
-
         if load_body:
             if "body" in self.__df:
                 ids_to_process = self.__df[self.__df["body"].isnull()]["id"].unique()
@@ -91,6 +88,9 @@ class SiteNews(object):
                 body_df = pd.concat([body_df, df], ignore_index=True)
 
             self.__df = pd.merge(self.__df, body_df, how="left", on="id")
+
+        if d_filter:
+            self.__df = d_filter(self.__df)
 
     def __str__(self):
         return """Total news loaded: {0}""".format(len(self.__df))
