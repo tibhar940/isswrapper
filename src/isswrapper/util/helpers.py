@@ -1,5 +1,6 @@
 import json
-from lxml import html
+
+# from lxml import html
 import pandas as pd
 import requests
 

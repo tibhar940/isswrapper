@@ -4,6 +4,8 @@ import datetime
 import pandas as pd
 from tqdm import tqdm
 
+from typing import Any
+
 
 def sitenews(start: int = 0, lang: str = "ru") -> pd.DataFrame:
     """/iss/sitenews"""
@@ -41,8 +43,22 @@ class SiteNews(object):
         self,
         ts1: datetime.datetime = None,
         ts2: datetime.datetime = None,
+        d_filter: Any = None,
         load_body: bool = False,
     ):
+        """
+        Loading news from site within given date range.
+        Don't return anything, instead fill self.df DataFrame.
+
+        :param ts1: starting date, defaults to None
+        :type ts1: datetime.datetime, optional
+        :param ts2: ending date, defaults to None
+        :type ts2: datetime.datetime, optional
+        :param load_body: adds news body to df, defaults to False
+        :type load_body: bool, optional
+        :param d_filter: filtering function like [d_filter(df)->filtered_df], defaults to None
+        :type d_filter: Any, optional
+        """
         if not ts2:
             ts2 = datetime.datetime.now() + datetime.timedelta(days=1)
         if not ts1:
@@ -54,13 +70,13 @@ class SiteNews(object):
                 df = sitenews(start=self.__current, lang=self.__lang)
                 ts_current = df["published_at"].min()
                 df = df[df["published_at"].between(ts1, ts2)]
-
                 self.__df = pd.concat([self.__df, df], ignore_index=True)
-                #
-                # self.__df = self.__df.append(df).reset_index(drop=True)
 
                 self.__current += self.__step
                 pbar.update(1)
+
+        if d_filter:
+            self.__df = d_filter(self.__df)
 
         if load_body:
             if "body" in self.__df:
@@ -72,12 +88,9 @@ class SiteNews(object):
                 ids_to_process = self.__df["id"].unique()
             for id in tqdm(ids_to_process, desc="Load site news body"):
                 df = sitenews_body(id)
-                body_df = body_df.append(df)
+                body_df = pd.concat([body_df, df], ignore_index=True)
 
             self.__df = pd.merge(self.__df, body_df, how="left", on="id")
-
-    def load_all(self, load_body: bool = False):
-        self.load(ts1=datetime.datetime(2000, 1, 1), load_body=load_body)
 
     def __str__(self):
         return """Total news loaded: {0}""".format(len(self.__df))
@@ -85,5 +98,9 @@ class SiteNews(object):
 
 if __name__ == "__main__":
     sn_instance = SiteNews()
-    sn_instance.load()
-    print(sn_instance.df)
+    filter = lambda x: x[
+        x["title"].str.contains("Об изменении риск-параметров на фондовом рынке")
+    ].drop(columns=["published_at"])
+    sn_instance.load(ts1=datetime.datetime(2020, 1, 1), d_filter=filter, load_body=True)
+
+    print(sn_instance.df.head())

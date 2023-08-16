@@ -1,6 +1,7 @@
 .gitignore
 README.md
 pyproject.toml
+requirements.txt
 setup.cfg
 .github/workflows/pre-commit.yml
 notebooks/candles_example.ipynb
@@ -10,6 +11,7 @@ src/isswrapper/__init__.py
 src/isswrapper.egg-info/PKG-INFO
 src/isswrapper.egg-info/SOURCES.txt
 src/isswrapper.egg-info/dependency_links.txt
+src/isswrapper.egg-info/requires.txt
 src/isswrapper.egg-info/top_level.txt
 src/isswrapper/loaders/__init__.py
 src/isswrapper/loaders/candles.py
