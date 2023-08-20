@@ -11,4 +11,4 @@ outdated
 build
 dist
 src/isswrapper.egg-info
-
+src/isswrapper.egg-info/SOURCES.txt
